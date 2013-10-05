@@ -19,10 +19,15 @@ TRANSLATION_FEED_ATOM = None
 LINKS =  ()
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+#SOCIAL = (('You can add links in your config file', '#'),
+#          ('Another social link', '#'),)
 
-DEFAULT_PAGINATION = False
+DEFAULT_PAGINATION = 4
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
+
+THEME = "themes/zem"
+GITHUB_URL = "https://github.com/danfoster"
+TWITTER_USERNAME = "DanF42"
+GOOGLE_ANALYTICS = "UA-44620677-1"

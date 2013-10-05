@@ -17,7 +17,7 @@
 /***** Global *****/
 /* Body */
 body {
-    background: #F5F4EF;
+    background: #121315;
     color: #000305;
     font-size: 87.5%; /* Base font size: 14px */
     font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -50,12 +50,12 @@ hr { border: 2px solid #EEEEEE; }
 a {outline: 0;}
 a img {border: 0px; text-decoration: none;}
 a:link, a:visited {
-	color: #C74350;
+	color: #ff5a00;
 	padding: 0 1px;
 	text-decoration: underline;
 }
 a:hover, a:active {
-	background-color: #C74350;
+	background-color: #ff5a00;
 	color: #fff;
 	text-decoration: none;
 	text-shadow: 1px 1px 1px #333;
@@ -146,7 +146,14 @@ aside, nav, article, figure {
 }
 
 /***** Layout *****/
-.body {clear: both; margin: 0 auto; width: 800px;}
+.body {
+	clear: both;
+	margin: 0 auto;
+	width: 800px;
+}
+aside.body, section.body, address.body{
+	border: 1px solid #ccc;
+}
 img.right, figure.right {float: right; margin: 0 0 2em 2em;}
 img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 
@@ -169,7 +176,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	}
 	#banner h1 a:hover, #banner h1 a:active {
 		background: none;
-		color: #C74350;
+		color: #ff5a00;
 		text-shadow: none;
 	}
 	
@@ -177,9 +184,9 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	
 	/* Main Nav */
 	#banner nav {
-		background: #000305;
+		background: url('/theme/images/navi.gif');
 		font-size: 1.143em;
-		height: 40px;
+		height: 37px;
 		line-height: 30px;
 		margin: 0 auto 2em auto;
 		padding: 0;
@@ -203,8 +210,8 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	}
 	#banner nav a:hover, #banner nav a:active,
 	#banner nav .active a:link, #banner nav .active a:visited {
-		background: #C74451;
-		color: #fff;
+		color: #ff5a00;
+		background: none;
 		text-shadow: none !important;
 	}
 	
