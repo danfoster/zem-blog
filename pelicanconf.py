@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+from pilkit.processors import *
 
 AUTHOR = u'Dan Foster'
 SITENAME = u'Zem'
@@ -31,3 +32,14 @@ THEME = "themes/zem"
 GITHUB_URL = "https://github.com/danfoster"
 TWITTER_USERNAME = "DanF42"
 GOOGLE_ANALYTICS = "UA-44620677-1"
+
+PLUGIN_PATH = '../pelican-plugins'
+PLUGINS = ['gallery','thumbnailer2']
+
+#IMAGE_PATH='images/gallery'
+#THUMBNAIL_DIR='images/gallery-thumb'
+#THUMBNAIL_SIZES={'200':'200x?'}
+
+RESIZE = [
+	('images/gallery', '-thumb', [SmartResize(100, 100)])
+]

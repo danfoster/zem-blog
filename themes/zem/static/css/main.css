@@ -204,7 +204,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	#banner nav a:link, #banner nav a:visited {
 		color: #fff;
 		display: inline-block;
-		height: 30px;
+		/* height: 30px; */
 		padding: 5px 1.5em;
 		text-decoration: none;
 	}
@@ -452,3 +452,33 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	
 	#add-comment input[type='submit'] {float: right; margin: 0 .5em;}
 	#add-comment * {margin-bottom: .5em;}
+
+
+div.gallery-photo {
+	display: inline-block;
+	position: relative;
+	margin: 6px;
+	padding: 0px;
+	text-indent: 0px;
+	border: 1px solid #ccc;
+	text-align: center;
+	vertical-align: top;
+}
+
+
+div.gallery-photo:hover {
+	border: 1px solid #ff5a00;
+}
+a.cboxElement {
+	margin: 0px;
+	padding: 0px;
+	height: 10px;
+	vertical-align: top;
+}
+a.cboxElement:hover {
+	background: inherit;
+}
+
+div.gallery-photo img {
+	display: block;
+}
