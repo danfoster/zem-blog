@@ -1,0 +1,17 @@
+      <!-- Image Gallery -->
+      <div class="photo-gallery">
+        {% for image in article.galleryimages %}
+	{% if imagemax %}{% if loop.index > imagemax %}View article for more images.{% break %}{% endif %}{% endif %}
+          <div class="gallery-photo">
+	<a class="{{ article.album }} cboxElement" href="{{ SITEURL }}/images/gallery/{{ article.album }}/{{ image }}">
+	<img src="{{ SITEURL }}/images/gallery-thumb/{{ article.album }}/{{ image }}">
+	</a>
+	</div>
+        {% endfor %}
+	 <script>
+            $('a.cboxElement').colorbox({rel:'cboxElement', transition:"none", width:"85%", height:"85%", title:function () {
+    return "To view full size, " + "click here!".link(this.href);
+}});
+        </script>
+      </div>
+

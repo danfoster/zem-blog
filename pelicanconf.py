@@ -43,3 +43,4 @@ PLUGINS = ['gallery','thumbnailer2']
 RESIZE = [
 	('images/gallery', '-thumb', [SmartResize(100, 100)])
 ]
+JINJA_EXTENSIONS= ['jinja2.ext.loopcontrols']

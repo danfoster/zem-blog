@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content_title %}{% endblock %}
+
+{% block head %}<script src="{{ SITEURL }}/theme/js/jquery.min.js"></script>
+<script src="{{ SITEURL }}/theme/js/jquery.colorbox-min.js"></script>
+<link rel="stylesheet" href="{{ SITEURL}}/theme/css/colorbox.css" />
+{% endblock %}
+
+
 {% block content %}        
+{% set imagemax = 5 %}
 {% if articles %}
     {% for article in articles_page.object_list %}        
 
@@ -9,7 +17,7 @@
             <aside id="featured" class="body">
                 <article>
                     <h1 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1> 
-                    {% include 'article_infos.html' %}{{ article.content }}{% include 'comments.html' %}
+                    {% include 'article_infos.html' %}{{ article.content }}{% include 'article_gallery.html' %}{% include 'comments.html' %}
                 </article>
                 {% if loop.length == 1 %}
                     {% include 'pagination.html' %}
