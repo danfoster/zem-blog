@@ -76,7 +76,3 @@ I am asking selling all this for £500.
 </address>
 
   [Macbook Pro overview]: https://lh4.googleusercontent.com/-29Qww4Np49Q/T8Ufk-qBnZI/AAAAAAAABWw/5SWzuyPC4z0/s855/20120529_201157.jpg
-  []: https://lh4.googleusercontent.com/-yr9VzldztzU/T8UfplUeoBI/AAAAAAAABW4/O9AhI3Xz1wA/s763/20120529_201207.jpg
-    "Laptop Open"
-  [1]: https://lh4.googleusercontent.com/-p_Unk7l5XAw/T8UftB_-JPI/AAAAAAAABXA/1zcFqHuMTN8/s763/20120529_201217.jpg
-    "Laptop Top"
