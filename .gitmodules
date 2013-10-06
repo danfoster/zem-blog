@@ -1,0 +1,3 @@
+[submodule "content/images/gallery"]
+	path = content/images/gallery
+	url = git@git.zem.org.uk:dan/zem-photos.git
