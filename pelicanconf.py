@@ -24,6 +24,8 @@ LINKS =  ()
 #          ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 4
+DISPLAY_CATEGORIES_ON_MENU = True
+DEFAULT_CATEGORY = ''
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
