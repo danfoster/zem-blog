@@ -2,3 +2,5 @@ srv.pid
 pelican.pid
 *.pyc
 output/*
+content/images/gallery-thumb
+content/images/gallery-web
