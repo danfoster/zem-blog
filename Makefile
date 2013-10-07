@@ -12,10 +12,10 @@ FTP_HOST=localhost
 FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
-SSH_HOST=localhost
+SSH_HOST=www.zem.org.uk
 SSH_PORT=22
-SSH_USER=root
-SSH_TARGET_DIR=/var/www
+SSH_USER=dan
+SSH_TARGET_DIR=/srv/projects/zem/var/www/blog
 
 S3_BUCKET=my_s3_bucket
 

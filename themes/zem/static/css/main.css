@@ -184,7 +184,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	
 	/* Main Nav */
 	#banner nav {
-		background: url('/theme/images/navi.gif');
+		background: url('../images/navi.gif');
 		font-size: 1.143em;
 		height: 37px;
 		line-height: 30px;

@@ -5,7 +5,7 @@ from pilkit.processors import *
 
 AUTHOR = u'Dan Foster'
 SITENAME = u'Zem'
-SITEURL = ''
+SITEURL = 'http://www.zem.org.uk'
 
 TIMEZONE = 'Europe/London'
 
@@ -28,7 +28,7 @@ DISPLAY_CATEGORIES_ON_MENU = True
 DEFAULT_CATEGORY = ''
 
 # Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
+RELATIVE_URLS = False
 
 THEME = "themes/zem"
 GITHUB_URL = "https://github.com/danfoster"
