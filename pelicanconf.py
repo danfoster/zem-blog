@@ -28,7 +28,7 @@ DISPLAY_CATEGORIES_ON_MENU = True
 DEFAULT_CATEGORY = ''
 
 # Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = False
+RELATIVE_URLS = True
 
 THEME = "themes/zem"
 GITHUB_URL = "https://github.com/danfoster"
