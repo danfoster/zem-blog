@@ -8,10 +8,10 @@
 
 
 {% block content %}        
-{% set imagemax = 5 %}
 {% if articles %}
     {% for article in articles_page.object_list %}        
 
+	{% set imagemax = 5 %}
         {# First item #}
         {% if loop.first and not articles_page.has_previous() %}
             <aside id="featured" class="body">
@@ -31,6 +31,8 @@
             {% endif %}
         {# other items #}
         {% else %} 
+
+	    {% set imagemax = 4 %}
             {% if loop.first and articles_page.has_previous %}
                 <section id="content" class="body">
                     <ol id="posts-list" class="hfeed" start="{{ articles_paginator.per_page -1 }}">
@@ -43,6 +45,7 @@
                 
                 <div class="entry-content">
                 {% include 'article_infos.html' %}
+		{% include 'article_gallery.html' %}
                 {{ article.summary }}
                 <a class="readmore" href="{{ SITEURL }}/{{ article.url }}">read more</a>
                 {% include 'comments.html' %}
