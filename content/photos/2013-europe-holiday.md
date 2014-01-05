@@ -4,5 +4,4 @@ Author: Dan Foster <dan@zem.org.uk>
 Category: Photos
 Tags: 
 Slug: 2013-europe-holiday
-gallery:2013-europe-holiday
-
+picasa:Euro Holiday 2013

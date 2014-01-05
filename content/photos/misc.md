@@ -4,5 +4,4 @@ Author: dan
 Category: Photos
 Tags: 
 Slug: photos-misc
-gallery:misc
-
+picasa:Misc
