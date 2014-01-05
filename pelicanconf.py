@@ -38,13 +38,6 @@ GOOGLE_ANALYTICS = "UA-44620677-1"
 PLUGIN_PATH = '..'
 PLUGINS = ['pelican-picasa'] 
 
-#IMAGE_PATH='images/gallery'
-#THUMBNAIL_DIR='images/gallery-thumb'
-#THUMBNAIL_SIZES={'200':'200x?'}
 PICASA_USER = 'dan@zem.org.uk'
 
-RESIZE = [
-	('gallery', '-thumb', [SmartResize(100, 100)]),
-	('gallery', '-web', [ResizeToFit(1920, 1080, False)])
-]
 JINJA_EXTENSIONS= ['jinja2.ext.loopcontrols']
