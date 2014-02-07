@@ -1,7 +1,7 @@
 Title: Subversion repository URI change
 Date: 2010-08-11 08:15
-Author: dan
-Category: Services
+Author: Dan Foster
+Category: Sysadmin
 Tags: Services, subversion
 Slug: subversion-repository-uri-change
 

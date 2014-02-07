@@ -39,6 +39,7 @@
         </header><!-- /#banner -->
         {% block content %}
         {% endblock %}
+        {% if LINKS or SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
         <section id="extras" class="body">
         {% if LINKS %}
                 <div class="blogroll">
@@ -66,12 +67,8 @@
                 </div><!-- /.social -->
         {% endif %}
         </section><!-- /#extras -->
+        {% endif %}
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                </address><!-- /#about -->
-
-        </footer><!-- /#contentinfo -->
 
 {% include 'analytics.html' %}
 {% include 'piwik.html' %}
