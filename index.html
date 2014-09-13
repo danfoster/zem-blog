@@ -32,15 +32,21 @@ layout: default
     <img style="-moz-border-radius: 30px; -khtml-border-radius: 30px; -webkit-border-radius: 30px; margin-bottom: 20px;" src="https://gravatar.com/avatar/24a5149218dbb11fd849d9a26de4c682?s=200"/>
   <h1 class="page-heading">Latest Photos</h1>
   <ul class="post-list">
-    {% for post in site.categories.photos limit:2 %}
+    {% capture post_count %}{% increment photos%}{% endcapture %}
+    {% for post in site.categories.photos limit:3 %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <h4>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h4>
+        {% if post_count == '0' %}
+        <p>{{ post.excerpt | extract_img }}</p>
+        {% endif %}
       </li>
+    {% capture post_count %}{% increment photos %}{% endcapture %}
     {% endfor %}
   </ul>
+  <p class="rss-subscribe">View <a href="{{ "/photos/" | prepend: site.baseurl }}">all photos</a>.</p>
 </div>
 
 
