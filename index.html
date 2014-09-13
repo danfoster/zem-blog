@@ -40,7 +40,7 @@ layout: default
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h4>
         {% if post_count == '0' %}
-        <p>{{ post.excerpt | extract_img }}</p>
+        <p>{{ post.excerpt | extract_img:5 }}</p>
         {% endif %}
       </li>
     {% capture post_count %}{% increment photos %}{% endcapture %}
