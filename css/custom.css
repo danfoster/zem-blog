@@ -1,0 +1,22 @@
+#content
+{
+    clear: left;
+    float: left;
+    width: 60%;
+    margin: 0 1% 0 0%;
+    padding: 0 1% 0 0%;
+    display: inline;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(232, 232, 232);
+}
+
+
+#aside
+{
+    float: right;
+    width: 26%;
+    margin: 0 3% 0 0;
+    display: inline;
+    overflow: hidden;
+}
