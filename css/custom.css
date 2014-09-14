@@ -2,8 +2,7 @@
 {
     clear: left;
     float: left;
-    width: 60%;
-    margin: 0 1% 0 0%;
+    width: 65%;
     padding: 0 1% 0 0%;
     display: inline;
     border-right-width: 1px;
@@ -15,8 +14,7 @@
 #aside
 {
     float: right;
-    width: 26%;
-    margin: 0 3% 0 0;
+    width: 32%;
     display: inline;
     overflow: hidden;
 }
@@ -25,7 +23,7 @@ img {
     -moz-border-radius: 5px;
     -khtml-border-radius: 5px;
     -webkit-border-radius: 5px;
-    margin: 5px;
+    margin: 3px;
 }
 
 .sidebar_thumbnail

@@ -28,7 +28,7 @@ layout: default
   <p class="rss-subscribe">View <a href="{{ "/posts/" | prepend: site.baseurl }}">all posts</a>.</p>
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>.</p>
 </div>
-<div class="aside">
+<div id="aside">
     <img style="-moz-border-radius: 30px; -khtml-border-radius: 30px; -webkit-border-radius: 30px; margin-bottom: 20px;" src="https://gravatar.com/avatar/24a5149218dbb11fd849d9a26de4c682?s=200"/>
   <h1 class="page-heading">Latest Photos</h1>
   <ul class="post-list">
@@ -43,7 +43,7 @@ layout: default
         <p>{{ post.excerpt | extract_img:5 }}</p>
         {% endif %}
       </li>
-    {% capture post_count %}{% increment photos %}{% endcapture %}
+    {% capture post_count %}{% increment photos%}{% endcapture %}
     {% endfor %}
   </ul>
   <p class="rss-subscribe">View <a href="{{ "/photos/" | prepend: site.baseurl }}">all photos</a>.</p>
