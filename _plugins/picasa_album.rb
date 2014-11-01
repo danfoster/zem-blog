@@ -25,15 +25,19 @@ module Jekyll
     end
 
     def render(context)
-      album = fetch_album_data
-      html = "<#{@config['gallery_tag']} class=\"#{@config['gallery_class']}\">\n"
-      html += "<#{@config['title_tag']}>#{album.title}</#{@config['title_tag']}>\n"
-      album.photos.each do |photo|
-        html += "<a rel=\"#{@config['a_rel']}\" class=\"#{@config['a_class']}\" target=\"#{@config['a_target']}\" href=\"#{photo.url}\">"
-        html += "<img rel=\"#{@config['img_rel']}\" class=\"#{@config['img_class']}\" src=\"#{photo.thumbnail}\"/>"
-        html += "</a>\n"
+      begin
+        album = fetch_album_data
+        html = "<#{@config['gallery_tag']} class=\"#{@config['gallery_class']}\">\n"
+        html += "<#{@config['title_tag']}>#{album.title}</#{@config['title_tag']}>\n"
+        album.photos.each do |photo|
+          html += "<a rel=\"#{@config['a_rel']}\" class=\"#{@config['a_class']}\" target=\"#{@config['a_target']}\" href=\"#{photo.url}\">"
+          html += "<img rel=\"#{@config['img_rel']}\" class=\"#{@config['img_class']}\" src=\"#{photo.thumbnail}\"/>"
+          html += "</a>\n"
+        end
+        html += "</#{@config['gallery_tag']}>"
+      rescue
+        html = "Warning: Failed to index album."
       end
-      html += "</#{@config['gallery_tag']}>"
       "#{html}"
     end
 
