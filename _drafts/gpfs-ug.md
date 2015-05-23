@@ -53,10 +53,13 @@ A "Protcol Node" is a bundled software stack that aims to:
 
 #### NFS
 
-Moving from the Kernel NFS server to Ganesha 2.2, a userland NFS server. This
-move is for increased performance and the ability for GPFS to be able to fix
-problems. The former is always a surprise to be, that a userland service can
-perform better. But the latter could not come quick enough, the fact that GPFS has to resort to rebooting a node if it detects an NFS lock gives some insight to how problematic the kernel NFS server can be.
+Moving from the Kernel NFS server to
+[Ganesha](https://github.com/nfs-ganesha/nfs-ganesha/wiki) 2.2, a userland NFS
+server. This move is for increased performance and the ability for GPFS to be
+able to fix problems. The former is always a surprise to be, that a userland
+service can perform better. But the latter could not come quick enough, the
+fact that GPFS has to resort to rebooting a node if it detects an NFS lock
+gives some insight to how problematic the kernel NFS server can be.
 
 Ganesha also has good support for NFSv4 as well as NFSv3.
 
@@ -69,15 +72,14 @@ There will also be an Amazon S3 protocol emulation layer for those users who req
 
 #### SMB:
 
-Based on samba 4.3
-SMB2, SMB2.1
-SMB3 support include manadatory features + SMB encryption
+The SMB offering uses samba 4.3. It has full support for SMB2 and SMB2.1. 
+SMB3 support includes all the manadatory features plus SMB encryption.
 
-1000 groups per user
-NFS, CIFS, GPFS cross-protocol locking
-Rolling upgrade - no, 2 phase upgrade
 
-directory notifcation - turned off by default. has performance impact.
+[Directory Change Notification](https://msdn.microsoft.com/en-us/library/jj216044.aspx) is turned
+off by default as it has performance impact, but can be enabled if required.
+
+A summary of some of the limits of each protocol:
 
                             | NFS                | Object         | SMB
 ---------------------------:|--------------------|----------------|----------
@@ -88,114 +90,106 @@ directory notifcation - turned off by default. has performance impact.
 **Rolling Upgrade?:**       | Yes                |                |
 
 
-
-
-Destinations: Flash, disk, tape, storage tich servers, off premise (softlayer, multi-cloud storage toolkit).
-
 ### Client Experience
 
-- Automating kernel module creation and installation
+IBM are keen to make the install process easier. I'm personally not sure how
+useful this is as the install process isn't that difficult already and it will
+usually be performed by someone fairly experienced.
 
-Immutable filesets
+What's not interesting is that upgrades should become easier. One of the big benefits is that kernel module creation and installation should be automated
 
-- Put in years ago for Integration archive (2007)
-- new mmchfileset -m option - mode
--- regular
--- advistory : hardline is not allowed, directory can not be renamed or deleted un less empry.
--- non-compliant
--- compliant
+### Immutable filesets
+
+Immutable filesets were introduced in 2007 for the Integration archive product. Now it's being exposed as a standard GPFS feature via a new `mmchfilset` option. a fileset will be able to be in the following modes:
+
+* regular
+* advistory: hardline is not allowed, directory can not be renamed or deleted unless empry.
+* non-compliant
+* compliant
 
 ### Other
 
-fileset level backups with mmbackup
-new preffered read option - read fastest
-remote command execution - re-eval root ssh access. User level auth - can mail gpfs@us.ibm.com for scripts today.
-speed-up inode expansion
-allocate token manager momory on the fly  - shouldn't need to tune it anymore.
-maintain disk descriptor on the fly, instead of just start. BIOS was trying to restore GPT partition is backup GTP partition was there and clobbering GPFS disk descriptior. GPFS also removes backup GPT partition tables again.
+Other interesting new features include:
 
-mmapplypolict --sort-command to use your own sort command
+* `mmbackup` will be able to operate on a per fileset level instead of filesystem. Should make it easier to split backups in to more managable chunks.
+* There is a new preffered read option, `read fastest`, which should improve read performance.
+* The requirement for all members of the cluster to have password-less root SSH access to each other is being phased out. It is being replaced by a dedicated command protocol with user level authentication. It's possible to do this today and IBM were reaching out for users to contact them (<gpfs@us.ibm.com>) if they are interested in trying it.
+* Speed-up inode expansion
+* GPFS will allocate token manager memory on the fly, which should remove the need to adminstrators to tune this value themselves.
+* Check and maintain disk descriptors on the fly, not just at startup time. There were some situations where NSD descriptors were getting wiped and then GPFS would be be able to find the NSD on restart. One common situation was when a disk has previously been used with a GPT partition table, the NSD descriptor would overwrite the primary GPT table, but leave the backup tables on disk. Some BIOSes would find these backup tables and "helpfully" restore the primary GPT table. GPFS should now also remove any backup GPT partition tables when an NSD is created.
+* It's possible to use your own sort command for `mmapplypolicy` by using the `--sort-command` option.
+* Placement policy now default to first data pool. Which prevents out of space errors on new filesystems if you forget to configure a default policy.
+* It now faster and provides more information when deleting bad/dead disks
+ - The `empty` option does not scan for drained data
+ - Possible to  collect information on what files were affected from a dead disk. `--inode-criteria criteriafile -o inoderesultfile` prints interesting inodes.
+* It was asked if ESS will be MLS comlient. IBM have not been through the process, but probably would be if a customer asked.
 
-placement polict now default to first data pool
+## Failure Events, Recovery & Problem determination
 
-faster and more information when deleting bad/list disks
- - empty option does not scan for drained data
- - collect information on what files were affected:
- -   --inode-criteria criteriafile -o inoderesultfile
-     prints interesting inodes,
+<sub>*Scott Fadden*</sub>
 
- look at mmfileid
+### NSD Protocol
 
- will ESS be MLS complient? They have not been through the process, but would probably do it if someone asked.
+> Blame the network... and use `nsdperf` to do it
 
-# Failure Events, Recovery & Problem determination
-
-##### *Scott Fadden*
-
-Blame the networkk... and use nsdprtf to do it
+`nsdperf` is similar to `iperf`, but it simulates NSD protocol traffic instead of just IP traffic. This has the following advantages.
 
 * Works with TCP or RDMA
-* Many to many
+* Many-to-many traffic flows, instead of one-to-one.
 * Tests many parameters easily
-* Does not require GPFS to be installed
 
-nsdperf is in the sample directory - nsd protocol permance, not actual nsds.
+While `nsdperf` is in the sample directory, it does not require GPFS to be installed on the system.
 
-nsdperf -s to fire it up, it's not secure!
-nsdperf for interactive
-
-netwrok admin with use iperf, 1-to-1, might work fine. Doesn't show many-to-many.
-
-mmdiag --iohist - everyio, type, time etc
-
+Since `nsdperf` just emulates the NSD protocol, it's not useful for looking at real NSD traffic on disk. `mmdiag --iohist` is more useful in that case.
 
 ### Looking in to AFM
 
-mmafmctl fs1 getstate
- - common question "my queue length is never zero, must not be synced", bmight just be read operations.
-to see active operations: mmfsadm dump afm
+Can query the current AFM state using `mmafmctl fs1 getstate`
 
-afm stats in mmpmon
+A common assumption is that if the queue length is never zero, the AFM must not
+be syned. This might not be true as it would be read operations in the queue.
+Use `mmfsadm dump afm` to see the active operations. If there are long running
+ones, this might suggest a problem.
+
+Afm stats in `mmpmon` should also be able to show useful performance information.
 
 
-# Monitoring IBM Spectrum Scale using IBM Spectrum Control (VSC/TPC)
+## Monitoring IBM Spectrum Scale using IBM Spectrum Control (VSC/TPC)
 
-##### *Christian Bolik*
+<sub>*Christian Bolik*</sub>
 
-Spectrum Ctronol: aka IBM Tivoli Storage Productivity Center (TPC).
+Spectrum Control is the new name for IBM Tivoli Storage Productivity Center (TPC). It traditionally provided improved visibility in to FC fabrics and is now expanding in to monitoring GPFS
 
-Provides improved visability into FC fabrics
+Unfortunately it currently only updates on a daily basis, so is limited in its usage for alerting. It is also a separatelt licenced product.
 
-Addressed by by Spectrum control (TPC 5.2.5)
-* Which of my cluster are running out of free space
-* which of my clusters or nodes havea health problem
-* which file systems and pools and running out of capacity
-* which file systems are mounted on which nodes
-* how much space is occuptied by snapshots? are there any potentially obsolete ones?
-* which quotas are close to being exceeded or have already been exceeded?
-* which filesets are close to running out of free inodes?
-* which nsds are at risk of becoming unavailable, or are unavailable?
-* are the volumes backing my NSDs performing OK?
-* are alll nodes fulfilling critical rolesi n the cluster and up and running
+The following is questions are addressed by Spectrum control (TPC 5.2.5)
 
-Periodic polling, not realtime. It's a daily collection process
+* Which of my clusters are running out of free space?
+* Which of my clusters or nodes have a health problem?
+* Which file systems and pools and running out of capacity?
+* Which file systems are mounted on which nodes?
+* How much space is occuptied by snapshots? are there any potentially obsolete ones?
+* Which quotas are close to being exceeded or have already been exceeded?
+* Which filesets are close to running out of free inodes?
+* Which nsds are at risk of becoming unavailable, or are unavailable?
+* Are the volumes backing my NSDs performing OK?
+* Are alll nodes fulfilling critical roles in the cluster up and running?
 
 Planned content in 5.2.6:
- * remote cluster mounted, which file systems are mounted from or by other clusters
- * ability to monitor GPFS cluster without requiring root credentials
+
+* Remote cluster mounts: which file systems are mounted from or by other clusters?
+* Ability to monitor GPFS cluster without requiring root credentials.
 
 Future:
-* performance monitoring of most relevany metrics (node and file system I/O stats)
+
+* Performance monitoring of most relevany metrics (node and file system I/O stats)
 * Visability into Spectrium Scale objects, GNR, and AFM
 * Provisioning of filesets, shares, nsds
-* policy visability
+* Policy visability
 
-How long is data kept? configurable, default is 3 months.
-can it be dumped out? database schema views
+Metric data is kept for 3 months by default, but can be tuned. It is stored in a DB2 database and therefore could be dumped out if needed.
 
-Separately licenced product.
-
-IBM storage management blog: ibm.co/172TdgH
+[IBM storage management blog](http://ibm.co/172TdgH)
 
 
 # User Experience from University of Birmingham/CLIMB
