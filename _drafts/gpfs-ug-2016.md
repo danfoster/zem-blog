@@ -276,55 +276,62 @@ Indy had developed MD sizing tool (spreadsheet) which is also available on reque
 # Spectrum Protect Integration & Best Practices (advanced topic)
 *Nils Haustein*
 
-This session quickly broke from the presentation format to an interesting discussion, which meant Nils couldn't cover
-Whitepaper to describe how to scale to multiple servers in the next 2 months
-when a file is backuped up to a server it is bound (recorded in inode).
+[Slides](http://files.gpfsug.org/presentations/2016/south-bank/D2_P3_E_IBM-NilsHaustein-SpectrumProtect_Backup_HSM_SpectrumScale.pdf)
 
-HSM with TSM has tight integration with backups. Inline backup from migration.
+This session quickly broke from the presentation format to an interesting discussion, which meant Nils couldn't cover all the content he intended.
 
-SS SOBAR toolkit exists for processing.
-RFE to inline backup premigrated files.
+There were a number of useful snippets:
 
-Can point 2 GPFS clusters to one TSM server for testing if you're VERY careful to only write from one side
-
-DMAPI has a max of 64 sessions
+ * A whitepaper describing how to scale Spectrum project to multiple servers is due iin the next 2 months, which will be very useful for us at UoB.
+ * When a file is first backed up to a server it is bound to that servername (recorded in inode), which should make it easier to split the backup load over multiple servers but changes should always land on the correct server.
+ * HSM with TSM has tight integration with backups. For example, inline backup from an archived file to save the data being transferred again.
+ * While SOBAR is a concept rather than a technology, Spectrum Scale contains a SOBAR toolkit to help processing.
+ * Someone in the audience is going to raise a RFE to inline backup pre-migrated files.
+ * There is no technical reason why you can't point 2 GPFS clusters to one TSM server in a HSM for testing if you're VERY careful to only write from one side. This can be useful for testing that your warm standby DR cluster is ready to go.
+ * DMAPI has a max of 64 concurrent sessions.
 
 # SS File Compression
 
-In 4.2
+[Slides](http://files.gpfsug.org/presentations/2016/south-bank/D2_P4_G_SpectrumScale-Compression-GPFSUG-South-Bank-London-17-05-2016.pdf)
 
-Controlled per file
-not file, it's a background process
-Typical 2:1 to 5:1 compression
-Designed to compress cold data
+Compression is introduced in 4.2 and is controller on a per file bases. Is it not live, but instead intended for archive data and integrates with the policy engine. This could be an interesting middle ground for data that hasn't been used for a while but cannot be archived to tape yet.
 
-Spectrum virtulize to do real-time compressions
+Typical compression ratios are between 2:1 to 5:1.
 
-use a filesystem with 4k inode size to keep the key in
+If real-time compression is required, this is not the tool, look in to Spectrum virtulize instead.
+
 
 # Adventures in AFM
 *Sponsor Technical Talk (DDN)*   
 *Vic Cornell*
 
+[Slides](http://files.gpfsug.org/presentations/2016/south-bank/D2_02_Vic_GPFS_Users_Group_2016.pdf)
 
+Vic gives his insights in using AFM over NFS for Imperial College. The sites are only ~30Km apart with a network latency of ~1.3ms. Key highlights were:
+
+ * It still feels like a new feature and more of a toolkit instead of a complete solution.
+ * They are using it in single writer cache mode, selecting which site to be "home" on a per-fileset basis
+ * Hitting issues with memory limits (`afmHardMemThreshold`)
+
+![AFM Imperial overview]({{ site.url }}/images/2016-gpfs-ug/afm-imperial-overview.png)
+
+One interesting test they performed was the effect on bandwidth with increased latency. The following graph shows how a slight increase in latency can seriously effect the bandwidth AFM can use. This raises some concerns with the link between UoB and our proposed 2nd Data Centre, as the initial tests showed a high jitter rate.
+
+![AFM Bandwidth Latency]({{ site.url }}/images/2016-gpfs-ug/afm-bandwidth-latency.png)
 
 # OpenStack Integration
 *Technical Deep Dive*  
 *Gaurang Tapase*
 
-Unified File and Object! :D
+[Slides](http://files.gpfsug.org/presentations/2016/south-bank/D2_03_GaurangTapase-Spectrum_Scale_User_Group_OpenStack_Integration.pdf)
 
-# Life Sciences
-*Sponsor Technical Talk (IBM)*  
-*Frank Lee*
+All the features that Gauging Tapase presented were interesting, but of most interest to me was the Unified File and Object integration.
+This allows a user to access the same data over a POSIX filesystem and over a swift object store.
 
-Not frank!
+![Unified File and Object]({{ site.url }}/images/2016-gpfs-ug/swift.png)
 
+This is potentially exciting as we develop tools for both UoB and external researchers to use the RDSF over the internet. We could potentially make use of a number of standard tools that provide a 'cloud' interface over the swift interface, which keeping POSIX access on-site for users who need it.
 
-
-#  Lenovo HPC Storage Update
-*Sponsor Technical Talk (Lenovo)*  
-*Michael Hennecke*
 
 # A look into the future by IBM Research
 *Sven Oehme*
