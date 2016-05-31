@@ -9,8 +9,7 @@ twitter_username: DanF42
 github_username:  danfoster
 
 # Build settings
-#markdown: kramdown
-markdown: redcarpet
+markdown: kramdown
 permalink: /:year/:month/:day/:title/
 
 defaults:
@@ -20,5 +19,3 @@ defaults:
     values:
       layout: post
 
-redcarpet:
-  extensions: ['tables']
