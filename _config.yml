@@ -19,3 +19,7 @@ defaults:
     values:
       layout: post
 
+analytics :
+  provider : google
+  google : 
+      tracking_id : 'UA-44620677-1'
