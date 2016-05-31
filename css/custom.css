@@ -1,8 +1,5 @@
 #content
 {
-    clear: left;
-    float: left;
-    width: 65%;
     padding: 0 1% 0 0%;
     display: inline;
     border-right-width: 1px;
@@ -11,13 +8,6 @@
 }
 
 
-#aside
-{
-    float: right;
-    width: 32%;
-    display: inline;
-    overflow: hidden;
-}
 
 img {
     -moz-border-radius: 5px;
@@ -26,7 +16,3 @@ img {
     margin: 3px;
 }
 
-.sidebar_thumbnail
-{
-    width: 70px;
-}
