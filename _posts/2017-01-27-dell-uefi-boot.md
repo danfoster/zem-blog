@@ -22,7 +22,7 @@ version `08.07.26` and applying it via the iDRAC solved the problem.
 
 It is common to use `pxelinux.0` as a bootloader for BIOS PXE ROM boots and traditionally your tftp root might look something like this:
 
-```
+{% highlight bash %}
 /var/lib/tftpboot
 ├── menu.c32
 ├── pxelinux.0
@@ -33,7 +33,7 @@ It is common to use `pxelinux.0` as a bootloader for BIOS PXE ROM boots and trad
     ├── initrd.img
     ├── upgrade.img
     └── vmlinuz
-```
+{% endhighlight %}
 
 `pxelinux.0` and `*.c32` are BIOS specific and therefore we need to supplement them with EFI compatible versions. All the required files can be found in the syslinux distribution hosted in the [Kernel archives](https://www.kernel.org/pub/linux/utils/boot/syslinux/) . At the time of writing, the latest version was `6.03`.
 
@@ -50,7 +50,7 @@ It is common to use `pxelinux.0` as a bootloader for BIOS PXE ROM boots and trad
 
  The magic is that your pxelinux.cfg loads `c32` modules relative to the bootloader directory (e.g. `default menu.c32`), therefore it's possible to make a shared pxelinux.cfg configs as long as all the required modules have their own version relative to the bootloader. With a bit of reshuffling of the BIOS bootloaders and a sprinkling of symlinks, we end up with something like this:
 
- ```
+{% highlight bash %}
  /var/lib/tftpboot
  ├── bios
  │   ├── CentOS-7-x86_64 -> ../CentOS-7-x86_64
@@ -79,7 +79,7 @@ It is common to use `pxelinux.0` as a bootloader for BIOS PXE ROM boots and trad
  └─── pxelinux.cfg
      ├── default
      └── 00:11:22:33:44:55
-```
+{% endhighlight %}
 
 We then need the DHCP server to pass the correct bootloader filename to the client. As per BIOS PXE booting, efi expects to use the `filename` DHCP option. Therefore we need to pass one of the following DHCP options depending on the type of client. This could either be done manually on a per client basis, or with a conditional on the `vendor-class-identifier`:
 

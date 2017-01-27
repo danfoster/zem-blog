@@ -1,5 +1,2 @@
 source 'https://rubygems.org'
-gem 'jekyll'
-gem 'nokogiri'
-gem 'therubyracer'
-gem 'redcarpet'
+gem 'github-pages', group: :jekyll_plugins
