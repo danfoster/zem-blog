@@ -26,3 +26,7 @@ analytics :
   provider : google
   google : 
       tracking_id : 'UA-44620677-1'
+
+tipue_search:
+  include:
+    pages: true
