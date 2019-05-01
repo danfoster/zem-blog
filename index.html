@@ -12,10 +12,10 @@ layout: default
         {% else %}
             {% if post.categories[0] != 'photos' %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <p>{{ post.excerpt }}</p>
       </li>
     {% capture post_count %}{% increment variable %}{% endcapture %}
@@ -23,7 +23,6 @@ layout: default
         {% endif %}
     {% endfor %}
   </ul>
-  <p class="rss-subscribe">View <a href="{{ "/posts/" | prepend: site.baseurl }}">all posts</a>.</p>
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>.</p>
 </div>
 

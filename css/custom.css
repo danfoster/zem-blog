@@ -16,3 +16,16 @@ img {
     margin: 3px;
 }
 
+
+.rss-subscribe {
+  font-size: 14px;
+  color: #828282;
+}
+
+h2 {
+  margin-bottom: 0px;
+}
+
+.post-list li {
+  margin-bottom: 5px
+}
